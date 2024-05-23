@@ -1,0 +1,138 @@
+<form  [formGroup]="grievanceDetailReportForm" >
+  <mat-toolbar class="example-toolbar mat-elevation-z0 my-toolbar">
+    <h3>Reports</h3>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button color="light" [routerLink]="['/dashboard']">
+      <mat-icon text-right>close</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-card class="mat-elevation-z1 mt-3">
+    <mat-card-content>
+      <div class="row">
+        <div class="col-12 col-sm-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Role</mat-label>
+            <mat-select   [(ngModel)]="ParamForms.nRoleId"   formControlName="nRoleId">
+              <mat-option *ngFor="let pt of ParamType" [value]="pt.nRoleId">
+                {{pt.tRoleName}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('nRoleId','required')">Role is required!</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <mat-select name="nGrievanceStatusId" [(ngModel)]="ParamForms.nGrievanceStatusId" formControlName="nGrievanceStatusId">
+              <mat-option *ngFor="let pt1 of ParamGrievanceStatus" [value]="pt1.nGrievanceStatusId">
+                {{pt1.tGrievanceStatus}}
+              </mat-option>
+            </mat-select>
+            <mat-error
+            *ngIf="errorHandling('nGrievanceStatusId','required')">
+            Status is required! 
+          </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-3">
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input matInput readonly [matDatepicker]="picker"   formControlName="dFromDate"
+              [(ngModel)]="ParamForms.dFromDate" name="dFromDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker ></mat-datepicker>
+            
+          </mat-form-field>
+
+        </div>
+        <div class="col-12 col-sm-3">
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input matInput readonly [matDatepicker]="picker1"   formControlName="dToDate"
+              [(ngModel)]="ParamForms.dToDate" name="dToDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1 ></mat-datepicker>
+           
+          </mat-form-field>
+        </div>
+      </div>
+
+    </mat-card-content>
+    <mat-card-footer style="display: flow-root;">
+      <div class="float-right mt-3 mb-3">
+        <button mat-raised-button color="primary" style="margin: 8px 8px 8px 0;"  (click)="showData()">
+          <mat-icon text-right>list</mat-icon> Show Data
+        </button>
+        <button mat-raised-button color="accent" style="margin: 8px 8px 8px 0;" (click)="downloadPdf('', 'download')">
+          <mat-icon text-right>cloud_download</mat-icon> Export to PDF
+        </button>
+        <button mat-raised-button color="warn" style="margin-right: 16px;" (click)="downloadPdf('', 'print')">
+          <mat-icon text-right>print</mat-icon> Print
+        </button>
+      </div>
+    </mat-card-footer>
+
+  </mat-card>
+  <mat-card class="mat-elevation-z1 mt-3" [hidden]="isShow">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="example-header">
+          <mat-form-field>
+            <!-- <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter"> -->
+            <input matInput  placeholder="Filter">
+          </mat-form-field>
+
+        </div>
+
+        <div class="example-container mat-elevation-z8" #TABLE>
+          <table mat-table #table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+            <!-- nGrievanceId Column -->
+            <ng-container matColumnDef="nGrievanceId">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+              <td mat-cell *matCellDef="let element"> {{element.nGrievanceId}} </td>
+            </ng-container>
+            <!-- tGrievanceType Column -->
+            <ng-container matColumnDef="tGrievanceType">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+              <td mat-cell *matCellDef="let element"> {{element.tGrievanceType}} </td>
+            </ng-container>
+            <!-- tGrievanceStatus Column -->
+            <ng-container matColumnDef="tGrievanceStatus">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+              <td mat-cell *matCellDef="let element"> {{element.tGrievanceStatus}} </td>
+            </ng-container>
+            <!-- Status Column -->
+            <ng-container matColumnDef="tGrievanceSubject">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Subject </th>
+              <td mat-cell *matCellDef="let element"> {{element.tGrievanceSubject}} </td>
+            </ng-container>
+            <!-- Description Column -->
+            <ng-container matColumnDef="tGrievanceDescription">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+              <td mat-cell *matCellDef="let element"> {{element.tGrievanceDescription}} </td>
+            </ng-container>
+            <!-- tFileUploadPath Column -->
+            <ng-container matColumnDef="tFileUploadPath">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Attached Document </th>
+              <td mat-cell *matCellDef="let element"> {{element.tFileUploadPath}} </td>
+            </ng-container>
+            <!-- Createddate Column -->
+            <ng-container matColumnDef="dCreatedDt">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Created date </th>
+              <td mat-cell *matCellDef="let element"> {{element.dCreatedDt | date: 'dd/MM/yyyy'}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+
+      </div>
+    </div>
+
+  </mat-card>
+
+
+
+
+</form>

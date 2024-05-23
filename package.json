@@ -1,0 +1,10 @@
+{
+  "main": "main.tns.js",
+  "android": {
+    "v8Flags": "--expose_gc",
+    "markingMode": "none"
+  },
+  "devDependencies": {
+    "@types/pdfmake": "^0.1.12"
+  }
+}

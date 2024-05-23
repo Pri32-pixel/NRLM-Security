@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>KMS</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"> -->
+  <!--Fontawesome CDN-->
+	<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> -->
+</head>
+<body>
+  <div id="loader">
+    <style>
+      .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+      }
+
+      /* Safari */
+      @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .application-loading-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      /**===== wave1 =====*/
+      #wave1 {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 50px;
+        width: 50px;
+        margin: -25px 0 0 -25px;
+        border-radius: 50%;
+      }
+
+      #wave1:before, #wave1:after {
+        content: '';
+        border: 5px solid rgb(30, 53, 53);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        left: 0px;
+      }
+
+      #wave1:before {
+        -webkit-transform: scale(1, 1);
+            -ms-transform: scale(1, 1);
+                transform: scale(1, 1);
+        opacity: 1;
+        -webkit-animation: spWaveBe 0.6s infinite linear;
+                animation: spWaveBe 0.6s infinite linear;
+      }
+
+      #wave1:after {
+        -webkit-transform: scale(0, 0);
+            -ms-transform: scale(0, 0);
+                transform: scale(0, 0);
+        opacity: 0;
+        -webkit-animation: spWaveAf 0.6s infinite linear;
+                animation: spWaveAf 0.6s infinite linear;
+      }
+
+      @-webkit-keyframes spWaveAf {
+        from {
+          -webkit-transform: scale(0.5, 0.5);
+                  transform: scale(0.5, 0.5);
+          opacity: 0;
+        }
+        to {
+          -webkit-transform: scale(1, 1);
+                  transform: scale(1, 1);
+          opacity: 1;
+        }
+      }
+      @keyframes spWaveAf {
+        from {
+          -webkit-transform: scale(0.5, 0.5);
+                  transform: scale(0.5, 0.5);
+          -webkit-transform: scale(0.5, 0.5);
+                  transform: scale(0.5, 0.5);
+          opacity: 0;
+        }
+        to {
+          -webkit-transform: scale(1, 1);
+                  transform: scale(1, 1);
+          -webkit-transform: scale(1, 1);
+                  transform: scale(1, 1);
+          opacity: 1;
+        }
+      }
+      @-webkit-keyframes spWaveBe {
+        from {
+          -webkit-transform: scale(1, 1);
+                  transform: scale(1, 1);
+          opacity: 1;
+        }
+        to {
+          -webkit-transform: scale(1.5, 1.5);
+                  transform: scale(1.5, 1.5);
+          opacity: 0;
+        }
+      }
+      @keyframes spWaveBe {
+        from {
+          -webkit-transform: scale(1, 1);
+                  transform: scale(1, 1);
+          opacity: 1;
+        }
+        to {
+          -webkit-transform: scale(1.5, 1.5);
+                  transform: scale(1.5, 1.5);
+          opacity: 0;
+        }
+      }
+      /** END of wave1 */ 
+           
+    </style>
+    <div class="application-loading-container">
+      <!-- <div class="loader"></div> -->
+      <div id="wave1"></div>
+    </div>
+  </div>
+  <app-root></app-root>
+</body>
+</html>

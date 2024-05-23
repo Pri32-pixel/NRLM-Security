@@ -1,0 +1,145 @@
+<form [formGroup]="addeventForm">
+    <mat-toolbar class="example-toolbar mat-elevation-z0 my-toolbar">
+      <h3>Add Event </h3>
+      <span class="toolbar-spacer"></span>
+      <button mat-icon-button color="light" [routerLink]="['/dashboard']">
+        <mat-icon text-right>close</mat-icon>
+      </button>
+    </mat-toolbar>
+  
+  
+    <mat-card class="mat-elevation-z1 mt-3">
+      <mat-card-content>
+        <div class="row">
+          <div class="col-12 col-sm-12">
+            <mat-form-field appearance="outline">
+              <mat-label>Event Name</mat-label>
+              <input matInput type="text" [(ngModel)]="ParamForms.event_name" formControlName="eventname" appAutoFocus
+                required>
+              <mat-error *ngIf="errorHandling('eventname','required')">Event Name is required!</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-sm-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Event Type</mat-label>
+              <mat-select [(ngModel)]="ParamForms.event_type" formControlName="eventtype" required>
+                <mat-option *ngFor="let pt1 of ParamType1" [value]="pt1.e_typeid">
+                  {{pt1.event_type}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="errorHandling('eventtype','required')">Event Type is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Event Short Description</mat-label>
+              <input matInput type="text" formControlName="eventshortdescription" [(ngModel)]="ParamForms.event_short_desc">
+              <mat-error *ngIf="errorHandling('eventshortdescription','required')">Event Short Description is required!</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-sm-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Event Audience</mat-label>
+              <input matInput type="text" formControlName="intendedaudience" [(ngModel)]="ParamForms.intent_audince">
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-sm-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Event Venue</mat-label>
+              <input matInput type="text" formControlName="eventvenue" [(ngModel)]="ParamForms.event_venue">
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-sm-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Event Start Date & time</mat-label>
+              <input matInput [ngxMatDatetimePicker]="pickerFrom" placeholder="Event Start date & time" formControlName="eventstartdt" [(ngModel)]="ParamForms.event_start_date_time" >
+
+              <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+          
+              <ngx-mat-datetime-picker #pickerFrom [enableMeridian]="true"></ngx-mat-datetime-picker>
+              <mat-error *ngIf="errorHandling('eventstartdt','required')">Event Start Date is required!</mat-error>
+                <!-- <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="eventstartdt">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker> -->
+              <!-- <input matInput type="text" formControlName="eventstartdt" [(ngModel)]="ParamForms.eventstartdt">
+              <mat-error *ngIf="errorHandling('eventstartdt','required')">Event Start Date is required!</mat-error> -->
+            </mat-form-field>
+          </div>
+          <!-- <div class="col-12 col-sm-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Event Start Time</mat-label>
+              <input matInput type="text" formControlName="eventstarttime" [(ngModel)]="ParamForms.eventstarttime">
+            </mat-form-field>
+          </div> -->
+          <div class="col-12 col-sm-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Event End Date & time</mat-label>
+              <input matInput [ngxMatDatetimePicker]="pickerTo" placeholder="Event End date & time" formControlName="eventenddt" [(ngModel)]="ParamForms.event_end_date_time">
+
+              <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+          
+              <ngx-mat-datetime-picker #pickerTo [enableMeridian]="true"></ngx-mat-datetime-picker>
+              <mat-error *ngIf="errorHandling('eventenddt','required')">Event End Date is required!</mat-error>
+              <!-- <input matInput type="text" formControlName="eventenddt" [(ngModel)]="ParamForms.eventenddt">
+              <mat-error *ngIf="errorHandling('eventenddt','required')">Event End Date is required!</mat-error> -->
+            </mat-form-field>
+          </div>
+          <!-- <div class="col-12 col-sm-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Event End Time</mat-label>
+              <input matInput type="text" formControlName="eventendtime" [(ngModel)]="ParamForms.eventendtime">
+            </mat-form-field>
+          </div> -->
+          <div class="col-12 col-sm-6">
+            <mat-form-field appearance="outline" >
+              <mat-label>State (Select)</mat-label>
+              <!-- <mat-select  #select multiple>
+                <div class="select-all">
+                    <mat-checkbox [(ngModel)]="ParamForms.event_state"
+                                    [ngModelOptions]="{standalone: true}"
+                                    (change)="toggleAllSelection()">Select All</mat-checkbox>
+                </div>
+                <mat-option (click)="optionClick()" *ngFor="let pt3 of ParamType3" [value]="pt3.stateid">
+                  {{pt3.statename}}
+                </mat-option>
+              </mat-select> -->
+              <mat-select appAutoFocus formControlName="stateid"  multiple required>
+                <mat-option *ngFor="let pt3 of ParamType3" [value]="pt3.stateid">
+                  {{pt3.statename}}
+                </mat-option>
+                <!-- <mat-option #allSelected  [value]="0">All</mat-option> -->
+              </mat-select>
+              <mat-error *ngIf="errorHandling('stateid','required')">State is required!</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-sm-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Cross State Publication</mat-label>
+              <mat-select [(ngModel)]="ParamForms.cross_state" formControlName="nCrossPublication" required>
+                <mat-option *ngFor="let pt2 of ParamType2" [value]="pt2.nCrossPublication">
+                  {{pt2.tCrossPublication}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="errorHandling('nCrossPublication','required')">Cross State Publication is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+       
+      </mat-card-content>
+      <mat-card-footer>
+        <div class="float-right mt-3 mb-3">
+          <button mat-raised-button color="primary" style="margin: 8px 8px 8px 0;" (click)="Save()">
+            <mat-icon text-right>save</mat-icon> Save
+          </button>
+          <button mat-raised-button color="warn" [routerLink]="['/dashboard']">
+            <mat-icon text-right>close</mat-icon> Close
+          </button>
+          <!-- <button mat-flat-button color="primary" 
+  (click)="openSelectComponent()">Continue</button>  -->
+        </div>
+      </mat-card-footer>
+    </mat-card>
+  </form>

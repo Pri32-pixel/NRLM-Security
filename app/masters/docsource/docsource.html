@@ -1,0 +1,57 @@
+<form  [formGroup]="docSourceForm" >
+<mat-toolbar class="example-toolbar mat-elevation-z0 my-toolbar">
+    <h3>Knowledge Material Source</h3>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button color="light" [routerLink]="['/DocSourcelist']"><mat-icon text-right>close</mat-icon></button>
+  </mat-toolbar>
+    <mat-card class="mat-elevation-z1 mt-3">
+        <mat-card-content>
+            <div class="row">
+            <div class="col-12 col-sm-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Knowledge Source Code</mat-label>
+                <input matInput type="text" maxlength="25" appAutoFocus required [(ngModel)]="ParamForms.docsourcecode" formControlName="tdocSourcecode">
+                <mat-error *ngIf="errorHandling('tdocSourcecode','required')"> Knowledge Source Code is required!</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Knowledge Source</mat-label>
+                <input matInput type="text" maxlength="255" appAutoFocus required [(ngModel)]="ParamForms.docsource" formControlName="tDocSource">
+                <mat-error *ngIf="errorHandling('tDocSource','required')"> Knowledge Source is required!</mat-error>
+              </mat-form-field>
+            </div>    
+            <div class="col-12 col-sm-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Knowledge Source Order</mat-label>
+                <input matInput type="text" formControlName="nDocSourceOrder" [(ngModel)]="ParamForms.docsourceorder" numbersOnly>
+              </mat-form-field>
+            </div> 
+              <div class="col-12 col-sm-4">
+                <mat-checkbox labelPosition="before" [(ngModel)]="ParamForms.is_active" formControlName="bIsActive">Active!</mat-checkbox>
+                <!-- <mat-form-field appearance="outline">
+                  <mat-label>Active</mat-label> -->
+                  <!-- <mat-select  [(ngModel)]="ParamForms.bIsActive" formControlName="bIsActive">
+                    <mat-option *ngFor="let d of status" [value]="d.id">
+                        {{d.name}}
+                    </mat-option>
+                  </mat-select> -->
+                <!-- </mat-form-field> -->
+              </div>                
+            </div>      
+        </mat-card-content>
+        <mat-card-footer>
+            <div class="float-right mt-3 mb-3">
+                <button mat-raised-button color="primary" style="margin: 8px 8px 8px 0;" (click)="Save()">
+                  <mat-icon text-right>save</mat-icon> Save
+                </button>
+                <button mat-raised-button color="accent" style="margin: 8px 8px 8px 0;" [routerLink]="['/DocSourcelist']">
+                    <mat-icon text-right>list</mat-icon> Get List
+                  </button>
+                <button mat-raised-button color="warn" style="margin-right: 16px;"  [routerLink]="['/DocSourcelist']">
+                    <mat-icon text-right>close</mat-icon> Close
+                </button>
+            </div> 
+        </mat-card-footer>  
+    </mat-card>
+  </form>

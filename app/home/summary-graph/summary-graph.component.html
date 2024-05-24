@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-12">
+    <ngx-charts-bar-vertical-stacked
+    [scheme]="colorScheme"
+    [results]="multi"
+    [gradient]="gradient"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis"
+    [customColors]="colorScheme"
+    (select)="onSelect($event)">
+  </ngx-charts-bar-vertical-stacked>
+  </div>
+</div>
+<!-- [legend]="showLegend"
+[showXAxisLabel]="showXAxisLabel"
+[showYAxisLabel]="showYAxisLabel"
+[xAxisLabel]="xAxisLabel"
+[yAxisLabel]="yAxisLabel" -->

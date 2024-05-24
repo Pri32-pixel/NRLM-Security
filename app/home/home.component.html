@@ -1,0 +1,237 @@
+<mat-toolbar class="mat-elevation-z0 my-toolbar" color="white">
+  <h3>Dashboard</h3>
+  <span class="toolbar-spacer"></span>
+  <!-- <button mat-button [matMenuTriggerFor]="menu">Year 2019-2020 <mat-icon text-right>keyboard_arrow_down</mat-icon>
+    </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>2019-2020</button>
+    <button mat-menu-item>2021-2022</button>
+  </mat-menu> -->
+</mat-toolbar>
+
+<div class="container">
+  <!-- Admin and Department  -->
+  <mat-card class="mat-elevation-z1" style="margin-bottom: 10px;" *ngIf="!loginService.isUserStudent()">
+    <h3>Knowledge Material Post Status</h3>
+    <div class="row">
+      <div class="col-md-3  mb-2">
+        <div *ngIf="isLoadingCount">
+          <ngx-skeleton-loader count="1" appearance="circle" [theme]="{height: '35px'}"></ngx-skeleton-loader>
+          <ngx-skeleton-loader count="1" appearance="line" [theme]="{height: '35px'}"></ngx-skeleton-loader>
+        </div>
+
+        <app-summary-card title="New Post!" [value]="newGrievance" icon="bookmarks" color="#dfad4e"
+          (onCardClick)='openDetail($event)' *ngIf="!isLoadingCount">
+        </app-summary-card>
+      </div>
+      <div class="col-md-3  mb-2">
+        <div *ngIf="isLoadingCount">
+          <ngx-skeleton-loader count="1" appearance="circle" [theme]="{height: '35px'}"></ngx-skeleton-loader>
+          <ngx-skeleton-loader count="1" appearance="line" [theme]="{height: '35px'}"></ngx-skeleton-loader>
+        </div>
+        <app-summary-card title="Pending Post!" [value]="assignedGrievance" icon="view_list" color="#ff9705"
+          (onCardClick)='openDetail($event)' *ngIf="!isLoadingCount">
+        </app-summary-card>
+      </div>
+      <div class="col-md-3  mb-2">
+        <div *ngIf="isLoadingCount">
+          <ngx-skeleton-loader count="1" appearance="circle" [theme]="{height: '35px'}"></ngx-skeleton-loader>
+          <ngx-skeleton-loader count="1" appearance="line" [theme]="{height: '35px'}"></ngx-skeleton-loader>
+        </div>
+        <app-summary-card title="Approved Post!" [value]="completedGrievance" icon="shopping_cart" color="#f0ad4e"
+          (onCardClick)='openDetail($event)' *ngIf="!isLoadingCount">
+        </app-summary-card>
+      </div>
+      <div class="col-md-3  mb-2">
+        <div *ngIf="isLoadingCount">
+          <ngx-skeleton-loader count="1" appearance="circle" [theme]="{height: '35px'}"></ngx-skeleton-loader>
+          <ngx-skeleton-loader count="1" appearance="line" [theme]="{height: '35px'}"></ngx-skeleton-loader>
+        </div>
+        <app-summary-card title="Total Post!" [value]="assignedGrievance+completedGrievance+newGrievance"
+          icon="contact_support" color="#de8200" (onCardClick)='openDetail($event)' *ngIf="!isLoadingCount">
+        </app-summary-card>
+      </div>
+    </div>
+  </mat-card>
+  
+  <!-- ////////Consumer Dashboard//////// -->
+  <mat-card class="mat-elevation-z1" style="margin-bottom: 10px;" *ngIf="loginService.isUserStudent()">
+    <h3>Knowledge Material</h3>
+    <div class="row">
+      <div class="col-md-4  mb-2">
+        <div *ngIf="isLoadingCount">
+          <ngx-skeleton-loader count="1" appearance="circle" [theme]="{height: '35px'}"></ngx-skeleton-loader>
+          <ngx-skeleton-loader count="1" appearance="line" [theme]="{height: '35px'}"></ngx-skeleton-loader>
+        </div>
+        <app-summary-card title="submitted (New) !" [value]="newGrievance" icon="bookmarks" color="#0275d8"
+          (onCardClick)='openDetailEndUser("0")' *ngIf="!isLoadingCount">
+        </app-summary-card>
+      </div>
+      <div class="col-md-4  mb-2">
+        <div *ngIf="isLoadingCount">
+          <ngx-skeleton-loader count="1" appearance="circle" [theme]="{height: '35px'}"></ngx-skeleton-loader>
+          <ngx-skeleton-loader count="1" appearance="line" [theme]="{height: '35px'}"></ngx-skeleton-loader>
+        </div>
+        <app-summary-card title="Pending for Approval!" [value]="assignedGrievance" icon="view_list" color="#5cb85c"
+          (onCardClick)='openDetailEndUser("1")' *ngIf="!isLoadingCount">
+        </app-summary-card>
+      </div>
+      <div class="col-md-4  mb-2">
+        <div *ngIf="isLoadingCount">
+          <ngx-skeleton-loader count="1" appearance="circle" [theme]="{height: '35px'}"></ngx-skeleton-loader>
+          <ngx-skeleton-loader count="1" appearance="line" [theme]="{height: '35px'}"></ngx-skeleton-loader>
+        </div>
+        <app-summary-card  title="Total!" [value]="completedGrievance" icon="shopping_cart" color="#f0ad4e"
+          (onCardClick)='openDetailEndUser("8")' *ngIf="!isLoadingCount">
+        </app-summary-card>
+      </div>
+    </div>
+  </mat-card>
+
+  <div class="row">
+    <div class="col-md-12">
+      <mat-card class="mat-elevation-z8" style="margin-bottom: 10px;" *ngIf="loginService.isUserStudent()">
+        <h3>List of Knowledge Material submitted</h3>
+        <div class="row">
+          <div class="col-md-12  mb-2" >
+            <table mat-table #table [dataSource]="dataSource" style="width: 100%;" matSort class="w-100">
+              <!-- nGrievanceId Column -->
+              <ng-container matColumnDef="nGrievanceId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+                <td mat-cell *matCellDef="let element"> {{element.mkid}} </td>
+              </ng-container>
+              <!-- tGrievanceType Column -->
+              <ng-container matColumnDef="tGrievanceType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+              </ng-container>
+              <!-- tGrievancePriority Column -->
+              <ng-container matColumnDef="tGrievancePriority">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+                <td mat-cell *matCellDef="let element"> {{element.doccategory}} </td>
+              </ng-container>
+              <!-- tGrievanceStatus Column -->
+              <ng-container matColumnDef="tGrievanceStatus">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> State Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.statename}} </td>
+              </ng-container>
+              <!-- tFileUploadPath Column -->
+              <ng-container matColumnDef="tFileUploadPath">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Attached Document </th>
+                <td mat-cell *matCellDef="let element"> <a class="btn btn-info"(click)="openFile(element.file_path,element.mkid)">Download</a>  </td>
+              </ng-container>
+              
+              <!-- Createddate Column -->
+              <ng-container matColumnDef="dCreatedDt">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Created date </th>
+                <td mat-cell *matCellDef="let element"> {{element.createddt | date: 'dd/MM/yyyy'}} </td>
+              </ng-container>
+              <ng-container matColumnDef="EditAction" >
+                <th mat-header-cell *matHeaderCellDef  > Action </th>
+                <td mat-cell *matCellDef="let element" > 
+                  <button mat-raised-button color="warn" class="btn btn-info" (click)="viewdocComponent(element.mkid)">View</button>  
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          </div>
+          
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row">
+    <!-- <div class="col-md-6">
+      <mat-card class="scrollable-content; mat-elevation-z1" style="margin-bottom: 10px;" *ngIf="!loginService.isUserStudent()">
+        <h3>Upcoming Events</h3>
+        <div class="row">
+          <div class="col-md-12  mb-2" >
+            <mat-card-content >
+              <marquee onmouseover="this.stop();" onmouseout="this.start();" width="100%" direction="up" height="122px" style="white-space: pre-line">
+                <ul>
+                  <li *ngFor="let pt1 of EventName1;"><a>{{pt1.event_name}}  (From {{pt1.event_start_date_time | date:'dd-MM-yyyy'}} to {{pt1.event_end_date_time | date:'dd-MM-yyyy'}})  </a> <br> </li>
+                </ul>
+                </marquee>
+          </mat-card-content>
+          </div>
+        </div>
+      </mat-card>
+    </div> -->
+
+    <div class="col-md-12">
+      <mat-card class="mat-elevation-z1" style="margin-bottom: 10px;" *ngIf="!loginService.isUserStudent()">
+        <h3> User Activity</h3>
+        <div class="row">
+          <div class="col-md-3  mb-2">
+            <mat-card-content>
+              <app-list-card title="View!" value="12" color="#dfad4e" >
+              </app-list-card>
+            </mat-card-content>
+          </div>
+          <div class="col-md-3  mb-2">
+            <mat-card-content>
+              <app-list-card title="Downloaded!" value="6" color="#ff9705" >
+              </app-list-card>
+            </mat-card-content>
+          </div>
+          <div class="col-md-3  mb-2">
+            <mat-card-content>
+              <app-list-card title="Rating!" value="3" color="#f0ad4e" >
+              </app-list-card>
+            </mat-card-content>
+          </div>
+          <div class="col-md-3  mb-2">
+            <mat-card-content>
+              <app-list-card title="Active Users!" value="10" color="#de8200" >
+              </app-list-card>
+            </mat-card-content>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <!-- ////////////Graph////////// -->
+  <div class="row">
+    <div class="col-md-6">
+      <mat-card class="mat-elevation-z1" style="margin-bottom: 10px;" *ngIf="!loginService.isUserStudent()">
+        <h3>Day wise Published Knowledge Material in current month</h3>
+        <div class="row">
+          <div class="col-md-12  mb-2" >
+            <mat-card-content >
+              <canvas baseChart [datasets]="barChartData" [colors]="barChartColors" [labels]="barChartLabels" [options]="barChartOptions"
+                [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+            </mat-card-content>
+          </div>
+          
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="col-md-6">
+      <mat-card class="mat-elevation-z1" style="margin-bottom: 10px;" *ngIf="!loginService.isUserStudent()">
+        <h3> Category wise Knowledge Material</h3>
+        <div class="row">
+          
+          <div class="col-md-12  mb-2">
+            <mat-card-content>
+              <canvas baseChart [datasets]="barChartData1" [colors]="barChartColors" [labels]="barChartLabels1" [options]="barChartOptions"
+                [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+            </mat-card-content>
+          </div>
+          
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+  
+  <!-- <mat-card class="mat-elevation-z1" *ngIf="!loginService.isUserStudent()">
+    <h3>Type Wise Grievance</h3>
+    <div class="row">
+      
+      
+    </div>
+  </mat-card> -->
+</div>

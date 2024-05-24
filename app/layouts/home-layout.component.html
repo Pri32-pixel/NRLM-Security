@@ -1,0 +1,142 @@
+<div class="example-container">
+    <mat-toolbar class="mat-elevation-z6">
+      <button mat-icon-button style="color: white" (click)="sidenav.toggle()" class="flot-right">
+        <mat-icon>menu</mat-icon>
+      </button>
+      
+      <h5><strong> &nbsp; KMS</strong></h5>
+      <span class="toolbar-spacer"></span>
+      <!-- <button mat-button>
+        <mat-icon text-right>notifications</mat-icon>
+      </button> -->
+      <img [src]="'assets/NRLMLogo.jpg'" style="height: 54px;" alt="image">
+      <h1 style="color: white;">
+        &nbsp;Deendayal Antodaya Yojana - NRLM
+      </h1>
+      <span class="toolbar-spacer"></span>
+      <a mat-button style="color: white" target="_blank" href="assets/NRLMHelpManual.pdf" matTooltip="Help [ F1 ]" (click)="showHelp()">
+        <mat-icon text-right>help</mat-icon>
+      </a>
+      <mat-divider vertical=true style="height:60%"></mat-divider>      
+      <button mat-button style="color: white" [matMenuTriggerFor]="belowMenu">
+        <mat-icon text-right >person</mat-icon>
+      </button>
+      <mat-menu #belowMenu="matMenu" yPosition="below" clas>
+          <div style="text-align: center;line-height: 0px;">
+            <img matListAvatar src="assets/nophoto.png" alt="..." style="border-radius: 50%;">
+            <h4  style="width: 250px; padding-top: 0px;">Welcome! {{user.firstname}}</h4>
+            <h5  style="width: 250px; padding-bottom: 10px;line-height: 0px;" class="text-wrap">asas</h5>
+            <h6  style="width: 250px; padding-bottom: 10px;line-height: 0px;">Role- {{user.rolename}} </h6>
+         < </div>
+         <!-- <mat-divider></mat-divider>
+          <button mat-menu-item (click)="openProfile()">
+            <mat-icon text-right>person</mat-icon><span>User Profile</span>
+          </button>-->
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="openChangePasswordComponent()">
+            <mat-icon text-right>track_changes</mat-icon><span>Change Password</span>
+          </button>
+          
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon text-right>exit_to_app</mat-icon><span>Logout</span>
+          </button>
+      </mat-menu>
+    </mat-toolbar>
+  
+    <mat-sidenav-container class="example-sidenav-container blue mat-elevation-z6">
+      <mat-sidenav #sidenav  [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedTopGap]>
+      
+        <mat-nav-list class="sidebar">
+          <h3 matSubheader>Dashboard</h3>
+          <a mat-list-item [routerLink]="'/dashboard'" (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">dashboard</mat-icon> Dashboard</a>
+          
+          
+        <mat-accordion [multi]="true">
+          <mat-expansion-panel  class=" mat-elevation-z0" >
+            <mat-expansion-panel-header>
+              <mat-panel-title matSubheader>
+                KMS
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            
+            <!-- Admin  -->
+            <a mat-list-item [routerLink]="'/GrievanceList'" (click)="toggleSidebar()" *ngIf="loginService.isUserAdmin()"><mat-icon matListIcon class="app-nav-list-icon">list_alt</mat-icon> List of Knowledge Material</a>
+            <a mat-list-item [routerLink]="['/PostDocAdd']" (click)="toggleSidebar()"  *ngIf="loginService.isUserAdmin()"><mat-icon matListIcon class="app-nav-list-icon">assignment</mat-icon> Add Knowledge Material</a>
+            <!-- <a mat-list-item [routerLink]="['/AddEvent']" (click)="toggleSidebar()"  *ngIf="loginService.isUserAdmin()"><mat-icon matListIcon class="app-nav-list-icon">event_note</mat-icon> Add Event</a>
+            <a mat-list-item [routerLink]="['/ViewEvent']" (click)="toggleSidebar()"  *ngIf="loginService.isUserAdmin()"><mat-icon matListIcon class="app-nav-list-icon">event_available</mat-icon> View Event</a> -->
+            <a mat-list-item [routerLink]="['/SearchDoc']" (click)="toggleSidebar()"  *ngIf="loginService.isUserAdmin()"><mat-icon matListIcon class="app-nav-list-icon">search</mat-icon> Search Knowledge Material</a>
+
+            <!-- <a mat-list-item [routerLink]="['/PublishDoc']" (click)="toggleSidebar()"  *ngIf="loginService.isUserAdmin()"><mat-icon matListIcon class="app-nav-list-icon">closed_caption</mat-icon> Publish</a> -->
+            <!-- Department  -->
+            <a mat-list-item [routerLink]="['/PostDocAdd']" (click)="toggleSidebar()"  *ngIf="loginService.isUserDept()"><mat-icon matListIcon class="app-nav-list-icon">assignment</mat-icon> Add Knowledge Material</a>
+            <a mat-list-item [routerLink]="['/SearchDoc']" (click)="toggleSidebar()"  *ngIf="loginService.isUserDept()"><mat-icon matListIcon class="app-nav-list-icon">search</mat-icon> Search Knowledge Material</a>
+            <!-- <a mat-list-item [routerLink]="['/ViewEvent']" (click)="toggleSidebar()"  *ngIf="loginService.isUserDept()"><mat-icon matListIcon class="app-nav-list-icon">event_available</mat-icon> View Event</a> -->
+            <!-- <a mat-list-item [routerLink]="['/PublishDoc']" (click)="toggleSidebar()"  *ngIf="loginService.isUserDept()"><mat-icon matListIcon class="app-nav-list-icon">closed_caption</mat-icon> Approval</a> -->
+            <!-- Student  -->
+            <a mat-list-item [routerLink]="'/PostDocAdd'" (click)="toggleSidebar()" *ngIf="loginService.isUserStudent()" ><mat-icon matListIcon class="app-nav-list-icon">list_alt</mat-icon> Add Knowledge Material</a>
+            <a mat-list-item [routerLink]="'/SearchDoc'" (click)="toggleSidebar()" *ngIf="loginService.isUserStudent()" ><mat-icon matListIcon class="app-nav-list-icon">search</mat-icon> Search Knowledge Material</a>
+            <!-- <a mat-list-item [routerLink]="['/ViewEvent']" (click)="toggleSidebar()"  *ngIf="loginService.isUserStudent()"><mat-icon matListIcon class="app-nav-list-icon">event_available</mat-icon> View Event</a> -->
+            <!-- <a mat-list-item [routerLink]="'/GrievanceStatuslist'" (click)="toggleSidebar()"  ><mat-icon matListIcon class="app-nav-list-icon">pages</mat-icon> Grievance Status</a> -->
+            
+          </mat-expansion-panel>
+          <mat-expansion-panel  class=" mat-elevation-z0" *ngIf="loginService.isUserAdmin()">
+            <mat-expansion-panel-header>
+              <mat-panel-title matSubheader>
+                  Masters
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- <a mat-list-item [routerLink]="'/GrievanceTypelist'"  (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">info</mat-icon> Grievance Type</a>
+            <a mat-list-item [routerLink]="'/GrievanceStatuslist'"  (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">info</mat-icon> Grievance Status</a>
+            <a mat-list-item [routerLink]="'/GrievancePrioritylist'" (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">info</mat-icon> Grievance Priority</a>
+            <a mat-list-item [routerLink]="'/Districtlist'"  (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">info</mat-icon> District</a> -->
+            <a mat-list-item [routerLink]="'/DocSourcelist'"  (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">dock</mat-icon> Doc Source</a>
+            <a mat-list-item [routerLink]="'/DocCategorylist'"  (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">category</mat-icon> Doc Category</a>
+<!--             <a mat-list-item [routerLink]="'/EventTypelist'"  (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">event_note</mat-icon> Event Type </a> -->
+            <a mat-list-item [routerLink]="'/FileTypelist'"  (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">file_copy</mat-icon> File Type </a>
+            <a mat-list-item [routerLink]="'/KMVerticallist'"  (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">swap_vertical_circle</mat-icon> KM Vertical Type </a>
+            <a mat-list-item [routerLink]="'/KMSubVerticallist'"  (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">swap_vertical_circle</mat-icon> KM Sub Vertical Type </a>
+            <a mat-list-item [routerLink]="'/Languagelist'"  (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">language</mat-icon> Language </a>
+            <a mat-list-item [routerLink]="'/Userlist'"  (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">perm_identity</mat-icon> User Creation</a>
+            <a mat-list-item [routerLink]="'/Statelist'" (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">my_location</mat-icon> State</a>
+            <a mat-list-item [routerLink]="'/Rolelist'" (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">copyright</mat-icon> Role</a>
+            
+        </mat-expansion-panel>   
+     <!--   <mat-expansion-panel  class=" mat-elevation-z0"  >
+          <mat-expansion-panel-header>
+            <mat-panel-title matSubheader>
+                Reports
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <a mat-list-item [routerLink]="'/GrievanceDetailReport'"  (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">description</mat-icon> Reports</a>
+      </mat-expansion-panel>   
+    -->
+    <!--    <mat-expansion-panel  class=" mat-elevation-z0" *ngIf="loginService.isUserAdmin()">
+          <mat-expansion-panel-header>
+            <mat-panel-title matSubheader>
+                Settings
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <a mat-list-item [routerLink]="'/helplist'" (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">info</mat-icon> Help</a>
+      </mat-expansion-panel>  
+      -->       
+        <!-- <mat-divider></mat-divider>           -->
+  
+          <mat-expansion-panel  class=" mat-elevation-z0" *ngIf="loginService.isUserAdmin()">
+            <mat-expansion-panel-header>
+              <mat-panel-title matSubheader>
+                  Authentication
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+              <a mat-list-item [routerLink]="'/Userlist'" (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">perm_identity</mat-icon> User</a>
+              <a mat-list-item [routerLink]="'/Rolelist'" (click)="toggleSidebar()"><mat-icon matListIcon class="app-nav-list-icon">copyright</mat-icon> Role</a>
+          </mat-expansion-panel>  
+          </mat-accordion>  
+        </mat-nav-list>      
+      </mat-sidenav>
+      
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>

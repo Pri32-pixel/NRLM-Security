@@ -1,0 +1,196 @@
+mat-sidenav {
+  width: 230px;
+  // padding:15px;
+}
+
+.mat-drawer { 
+  background-color: #431e10;
+  color:rgb(245, 243, 243)  
+} 
+
+.mat-drawer  .mat-list-base  .mat-list-item { 
+  background-color: #431e10;
+  color:rgb(245, 243, 243) ; 
+}
+.mat-drawer  .mat-list-base  .mat-list-item .mat-list-icon { 
+  background-color: #431e10;
+  color:lightgray;  
+}
+
+.mat-drawer  .mat-list-base .mat-subheader { 
+  background-color:#431e10;
+  color:lightgray;  
+}
+
+.mat-drawer  .mat-list-base  .mat-expansion-panel{ 
+  background-color: #431e10;
+  color:#616060 ; 
+}
+  
+.mat-expansion-panel-header-description .mat-panel-title
+.mat-expansion-indicator::after {
+    color: white;
+}
+
+
+
+.main-content { 
+  padding:20px;
+}
+
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.example-is-mobile .example-toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+  // height: 55px;
+}
+
+h1.example-app-name {
+  margin-left: 8px;
+}
+
+.example-sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+  // z-index: -1;
+  // margin-top: 2px;
+}
+
+mat-sidenav-content {
+  padding: 0px 0px;
+  margin: 0px 0px;
+}
+
+.container  .mat-button{
+  display: block;
+  width: 100%;
+  text-align: left;
+
+  }
+
+   /* CSS */
+   .mat-list-item.mat-list-item-word-wrap {
+    height: initial !important;
+  }
+
+  .mat-list-item-word-wrap .mat-line {
+    word-wrap: break-word !important; 
+    white-space: pre-wrap !important;
+  }
+
+  .logo{
+    width: 120px;height: 60px;
+  }
+  
+//   // toolbar elevation to work
+// .mat-elevation-z6 {
+//    position: relative;
+//    z-index: 2;
+// }
+
+.mat-subheader {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mat-title {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.app-nav-list-icon {
+  margin: 0 8px 0 8px;
+  color:grey;
+  font-size: 8px;
+}
+
+.mat-expansion-panel-header {
+  padding: 0px 20px 0px 0px;
+}
+
+::ng-deep .mat-expansion-panel-content > .mat-expansion-panel-body {
+  padding: 0px 0px 16px;
+}
+
+::ng-deep .mat-expansion-indicator::after, .mat-expansion-panel-header-description {
+  color:lightgray;
+  font-size: smaller;
+}
+
+// @media only screen and (max-width: 600px) {
+//   .hide-on-small-screens {
+//       display: none;
+//   }
+// }
+  
+
+// .sidedrawer {
+//   margin-bottom: -100;
+// }
+// .sidedrawer-list-item-icon,.sidedrawer-list-item{
+//   color: #022734;
+// }
+// .sidedrawer.sidedrawer-left {
+//   background-color: #3A53FF;
+// }
+// .sidedrawer.sidedrawer-left .sidedrawer-header-image {
+//   color: #F8F8F8;
+//   height: 60;
+//   width: 60;
+//   font-size: 60;
+//   padding: 0;
+//   margin-bottom: 5;
+//   margin-top: 20;
+// }
+// .sidedrawer.sidedrawer-left .footnote {
+//   color: rgba(255,255,255,0.5);
+// }
+// .sidedrawer .sidedrawer-header {
+//   background-color: #3A53FF;
+// }
+// .sidedrawer .sidedrawer-header .sidedrawer-header-brand {
+//   color: #fff;
+// }
+// .sidedrawer .sidedrawer-content{ 
+//   background-color: #fff;
+// }
+// .sidedrawer .sidedrawer-content .sidedrawer-list-item{
+//   padding-left: 15;
+// }
+// .sidedrawer .sidedrawer-content .sidedrawer-list-item Label {
+//   vertical-align: center;
+//   color: #022734;
+// }
+// .sidedrawer .sidedrawer-content .sidedrawer-list-item .fa {
+//   width: 20;
+//   margin-right: 10;
+// }
+// .sidedrawer .sidedrawer-content .sidedrawer-list-item.selected {
+//   background-color: #F8F8F8;
+// }
+// .sidedrawer .sidedrawer-content .sidedrawer-list-item.selected Label {
+//   color:#3A53FF;
+// }
+
+
+//#818D92
+//#586A6A
+//#B9A394
+// //#615A5B
+//#3C3A42
+
+.sidebar .mat-list-item {
+  height: 40px;
+}

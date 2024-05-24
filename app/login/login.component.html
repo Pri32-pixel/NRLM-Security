@@ -1,0 +1,93 @@
+<div class="login-page">
+    <div class="content px20">
+      
+      <form class="login-form" #myForm="ngForm" (ngSubmit)="login()">
+       
+        <div class="text-center">
+          <img [src]="'assets/NRLMLogo.jpg'" style="height: 54px;" alt="image">
+          <h2 style="color: black;font-size: x-large" >
+            Deendayal Antodaya Yojana - NRLM
+          </h2>
+          <h3 class="app-name">Knowledge Management System</h3>
+        </div>
+        <div fxLayout="row">
+          <div fxFlexFill>
+            <mat-form-field class="w-100">
+              <input matInput name="Username" maxlength="60"  [formControl]="usernameFormControl" placeholder="User Id" [(ngModel)]="UserModel.tUserLoginId" appAutoFocus>
+                <mat-error *ngIf="errorHandling('usernameFormControl','required')">Please enter User Name!</mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-100">
+              <input matInput type="password" maxlength="60" name="Password" [formControl]="passwordFormControl" placeholder="Password" [(ngModel)]="UserModel.tUserPassword">
+              <mat-error *ngIf="errorHandling('passwordFormControl','required')">Please enter Password!</mat-error>
+            </mat-form-field>
+            <div fxLayout="row">
+            <mat-form-field class="w-100">
+              <input matInput type="text" maxlength="10" (paste)="(false)" name="captchacode" [formControl]="captchaFormControl" placeholder="captcha" [(ngModel)]="UserModel.captchacode">
+              <mat-error *ngIf="errorHandling('captchaFormControl','required')">Please enter Captcha code!</mat-error>
+            </mat-form-field>
+          </div>
+          </div>
+          </div>
+          
+  
+          <div class="row">
+            <div class="col-sm">
+              <mat-card style="background-color:#f6f6e1;">
+                <mat-card-content > <div id="image" style="font-size: 15px; text-decoration: line-through;font-family: cursive; " class="inline" selectable="False">
+                </div></mat-card-content>
+              </mat-card>
+            </div>
+            <div class="col-sm">
+              <button type="button" (click)="generateCaptcha();"  mat-icon-button color="primary" aria-label="Example icon button with a refresh icon" >
+                <mat-icon>refresh</mat-icon>
+              </button>
+            </div>
+            
+        </div>
+     
+      <div fxLayout="row">
+          <div fxFlexFill>
+            <button type="submit" style="margin-top: 10px;background-color: #5a2714;" mat-raised-button color="warn" class="w-100" (click)="login()" [disabled]="btnstate">Login</button>
+            <!--  <button type="button" mat-button color="primary" class="w-100" (click)="openForgotPassword()">Forgot Password</button>-->
+          </div>
+        </div>
+  
+      </form>
+    </div>
+    
+  </div>
+  
+
+<!-- <div class="login-page">
+        <div class="content px20">
+        <form class="login-form">
+            <div class="text-center">
+                <h6 class="app-name">Grievance Management System</h6>
+              </div>
+            <div fxLayout="row">
+                <div fxFlexFill>
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>User Name</mat-label>
+                    <input matInput type="text" [(ngModel)]="UserModel.tUserLoginId"  [formControl]="usernameFormControl" required
+                        appAutoFocus>
+                    <mat-icon matPrefix>person</mat-icon>
+                    <mat-error *ngIf="usernameFormControl.invalid">
+                        {{getRequiredErrorMessageUsername('usernameFormControl')}}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" [(ngModel)]="UserModel.tUserPassword" required [formControl]="passwordFormControl">
+                    <mat-icon matPrefix>vpn_key</mat-icon>
+                    <mat-error *ngIf="usernameFormControl.invalid">
+                        {{getRequiredErrorMessagePassword('passwordFormControl')}}</mat-error>
+                </mat-form-field>
+                <button mat-flat-button color="primary" class="btn-block" style="width: 100%;" [disabled]="loginForm.invalid" (click)="login()">Sign in</button>
+                <button mat-button color="primary" class="btn-block" (click)="openForgotPassword()">Forgot Password?</button>
+                
+                </div>
+            </div>
+        </form>
+        </div>
+    
+</div> -->

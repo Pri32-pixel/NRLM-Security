@@ -1,0 +1,50 @@
+<form  [formGroup]="grievanceStatusForm" >
+<mat-toolbar class="example-toolbar mat-elevation-z0 my-toolbar">
+    <h3>Grievance Status</h3>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button color="light" [routerLink]="['/GrievanceStatuslist']"><mat-icon text-right>close</mat-icon></button>
+  </mat-toolbar>
+    <mat-card class="mat-elevation-z1 mt-3">
+        <mat-card-content>
+            <div class="row">
+            <div class="col-12 col-sm-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Grievance Status</mat-label>
+                <input matInput type="text" appAutoFocus required [(ngModel)]="ParamForms.tGrievanceStatus" formControlName="tGrievanceStatus">
+                <mat-error *ngIf="errorHandling('tGrievanceStatus','required')"> Grievance Status is required!</mat-error>
+              </mat-form-field>
+            </div>    
+            <div class="col-12 col-sm-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Grievance Status Order</mat-label>
+                <input matInput type="text" formControlName="nGrievanceStatusOrder" [(ngModel)]="ParamForms.nGrievanceStatusOrder" numbersOnly>
+              </mat-form-field>
+            </div> 
+              <div class="col-12 col-sm-4">
+                <mat-checkbox labelPosition="before" [(ngModel)]="ParamForms.bIsActive" formControlName="bIsActive">Active!</mat-checkbox>
+                <!-- <mat-form-field appearance="outline"> -->
+                  <!-- <mat-label>Active</mat-label> -->
+                  <!-- <mat-select  [(ngModel)]="ParamForms.bIsActive" formControlName="bIsActive">
+                    <mat-option *ngFor="let d of status" [value]="d.id">
+                        {{d.name}}
+                    </mat-option>
+                  </mat-select> -->
+                <!-- </mat-form-field> -->
+              </div>                
+            </div>      
+        </mat-card-content>
+        <mat-card-footer>
+            <div class="float-right mt-3 mb-3">
+                <button mat-raised-button color="primary" style="margin: 8px 8px 8px 0;" (click)="Save()">
+                  <mat-icon text-right>save</mat-icon> Save
+                </button>
+                <button mat-raised-button color="accent" style="margin: 8px 8px 8px 0;" [routerLink]="['/GrievanceStatuslist']">
+                    <mat-icon text-right>list</mat-icon> Get List
+                  </button>
+                <button mat-raised-button color="warn" style="margin-right: 16px;"  [routerLink]="['/GrievanceStatuslist']">
+                    <mat-icon text-right>close</mat-icon> Close
+                </button>
+            </div> 
+        </mat-card-footer>  
+    </mat-card>
+  </form>

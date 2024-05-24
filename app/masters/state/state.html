@@ -1,0 +1,57 @@
+<form  [formGroup]="stateForm" >
+  <mat-toolbar class="example-toolbar mat-elevation-z0 my-toolbar">
+      <h3>State</h3>
+      <span class="toolbar-spacer"></span>
+      <button mat-icon-button color="light" [routerLink]="['/Statelist']"><mat-icon text-right>close</mat-icon></button>
+    </mat-toolbar>
+      <mat-card class="mat-elevation-z1 mt-3">
+          <mat-card-content>
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <mat-form-field appearance="outline" >
+                    <mat-label>Country</mat-label>
+                    <mat-select appAutoFocus formControlName="nCountryId"  [(ngModel)]="ParamForms.countryid" required>
+                      <mat-option *ngFor="let pt of ParamType" [value]="pt.countryid">
+                        {{pt.countryname}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="errorHandling('nCountryId','required')">State is required!</mat-error>
+                  </mat-form-field>
+                </div> 
+              <div class="col-12 col-sm-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>State</mat-label>
+                  <input matInput type="text" maxlength="50" required [(ngModel)]="ParamForms.statename" formControlName="tStateName">
+                  <mat-error *ngIf="errorHandling('tStateName','required')"> State Name is required!</mat-error>
+                </mat-form-field>
+              </div>    
+              
+                <div class="col-12 col-sm-4">
+                  <mat-checkbox labelPosition="before" [(ngModel)]="ParamForms.is_active" formControlName="bIsActive">Active!</mat-checkbox>
+                  <!-- <mat-form-field appearance="outline">
+                    <mat-label>Active</mat-label>
+                    <mat-select  [(ngModel)]="ParamForms.bIsActive" formControlName="bIsActive">
+                      <mat-option *ngFor="let d of status" [value]="d.id">
+                          {{d.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field> -->
+                </div>                
+              </div>      
+          </mat-card-content>
+          <mat-card-footer>
+              <div class="float-right mt-3 mb-3">
+                  <button mat-raised-button color="primary" style="margin: 8px 8px 8px 0;" (click)="Save()">
+                    <mat-icon text-right>save</mat-icon> Save
+                  </button>
+                  <button mat-raised-button color="accent" style="margin: 8px 8px 8px 0;" [routerLink]="['/Statelist']">
+                      <mat-icon text-right>list</mat-icon> Get List
+                    </button>
+                  <button mat-raised-button color="warn" style="margin-right: 16px;"  [routerLink]="['/Statelist']">
+                      <mat-icon text-right>close</mat-icon> Close
+                  </button>
+              </div> 
+          </mat-card-footer>  
+      </mat-card>
+    </form>
+  

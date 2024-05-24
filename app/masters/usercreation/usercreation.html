@@ -1,0 +1,164 @@
+
+<form  [formGroup]="userForm" >
+  <mat-toolbar class="example-toolbar mat-elevation-z0 my-toolbar">
+      <h3>User Creation</h3>
+      <span class="toolbar-spacer"></span>
+      <button mat-icon-button color="light" [routerLink]="['/Userlist']"><mat-icon text-right>close</mat-icon></button>
+    </mat-toolbar>
+      <mat-card class="mat-elevation-z1 mt-3">
+          <mat-card-content>
+              <div class="row">
+                
+                <div class="col-12 col-sm-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Email Id</mat-label>
+                    <input matInput type="text" required [(ngModel)]="ParamForms.emailid" maxlength="200"  formControlName="emailid">
+                    <!-- <mat-error *ngIf="errorHandling('emailid','required')"> Email Id is required!</mat-error> -->
+                    <mat-error *ngIf="userForm.get('emailid').hasError('required')">
+                      Email Id is <strong>required!</strong>
+                    </mat-error>
+                    <mat-error *ngIf="!userForm.get('emailid').hasError('required') &&userForm.get('emailid').hasError('pattern')"> Please enter valid emailid
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>User Id</mat-label>
+                    <input matInput type="text" required [(ngModel)]="ParamForms.userloginid" maxlength="70" formControlName="userloginid">
+                    <mat-error *ngIf="errorHandling('userloginid','required')"> UserLoginId is <strong>required!</strong></mat-error>
+                  </mat-form-field>
+                </div>  
+                <div class="col-12 col-sm-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>First Name</mat-label>
+                    <input matInput type="text" maxlength="60" required [(ngModel)]="ParamForms.firstname" formControlName="firstname">
+                    <mat-error *ngIf="errorHandling('firstname','required')"> First Name is <strong>required!</strong></mat-error>
+                  </mat-form-field>
+                </div> 
+
+                <div class="col-12 col-sm-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput type="text" maxlength="60" required [(ngModel)]="ParamForms.lastname" formControlName="lastname">
+                    <mat-error *ngIf="errorHandling('lastname','required')"> Last Name is<strong>required!</strong></mat-error>
+                  </mat-form-field>
+                </div> 
+                <div class="col-12 col-sm-6">
+                  <mat-form-field appearance="outline" >
+                    <mat-label>Department</mat-label>
+                    <mat-select appAutoFocus formControlName="nDepartmentId"  [(ngModel)]="ParamForms.deptid" required>
+                      <mat-option *ngFor="let pt3 of ParamType3" [value]="pt3.departmentid">
+                        {{pt3.departmentname}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="errorHandling('nDepartmentId','required')">Department is <strong>required!</strong></mat-error>
+                  </mat-form-field>
+                </div> 
+                <div class="col-12 col-sm-6">
+                  <mat-form-field appearance="outline" >
+                    <mat-label>Role</mat-label>
+                    <mat-select appAutoFocus formControlName="roleid"  [(ngModel)]="ParamForms.roleid" required>
+                      <mat-option *ngFor="let pt1 of ParamType1" [value]="pt1.roleid">
+                        {{pt1.rolename}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="errorHandling('roleid','required')">Role is <strong>required!</strong></mat-error>
+                  </mat-form-field>
+                </div> 
+
+                
+              <div class="col-12 col-sm-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Mobile No</mat-label>
+                  <input matInput type="text" maxlength="10"  required [(ngModel)]="ParamForms.phoneno" formControlName="phoneno">
+                  <!-- <mat-error *ngIf="errorHandling('phoneno','required')"> Mobile No is required!</mat-error> -->
+                  <mat-error *ngIf="userForm.get('phoneno').hasError('required')">
+                    Phone number is <strong>required</strong>
+                  </mat-error>
+                   <mat-error *ngIf="!userForm.get('phoneno').hasError('required') &&userForm.get('phoneno').hasError('pattern')">
+                   Please enter valid mumber
+                  </mat-error>
+                </mat-form-field>
+              </div>    
+
+              <div class="col-12 col-sm-6">
+                <mat-form-field appearance="outline" >
+                  <mat-label>State</mat-label>
+                  <mat-select appAutoFocus formControlName="stateid" (ngModelChange)="getDistrict($event)"  [(ngModel)]="ParamForms.stateid" required>
+                    <mat-option *ngFor="let pt2 of ParamType2" [value]="pt2.stateid">
+                      {{pt2.statename}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="errorHandling('stateid','required')">State is required!</mat-error>
+                </mat-form-field>
+              </div> 
+              <div class="col-12 col-sm-6">
+                <mat-form-field appearance="outline" >
+                  <mat-label>District</mat-label>
+                  <mat-select appAutoFocus formControlName="districtid" (ngModelChange)="getBlocks($event)"   [(ngModel)]="ParamForms.districtid" required>
+                    <mat-option *ngFor="let pt2 of districtArr" [value]="pt2.districtid">
+                      {{pt2.districtname}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="errorHandling('districtid','required')">District is required!</mat-error>
+                </mat-form-field>
+              </div> 
+              <div class="col-12 col-sm-6">
+                <mat-form-field appearance="outline" >
+                  <mat-label>Block Name</mat-label>
+                  <mat-select appAutoFocus formControlName="blockid"   [(ngModel)]="ParamForms.blockid" required>
+                    <mat-option *ngFor="let pts2 of blockArr" [value]="pts2.block_id">
+                      {{pts2.block_name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="errorHandling('blockid','required')">Block is required!</mat-error>
+                </mat-form-field>
+              </div> 
+
+              <div class="col-12 col-sm-6" [hidden]="isReadOnly">
+                
+                <mat-form-field appearance="outline">
+                  <mat-label>Password</mat-label>
+                  <input matInput type="text" (input)="onSearchChange($event.target.value)" maxlength="16" required [(ngModel)]="ParamForms.userpassword" formControlName="userpassword">
+                  <mat-error *ngIf="errorHandling('userpassword','required')"> Password is required!</mat-error>
+               
+                </mat-form-field>
+                
+           
+                <p style="font-size: 10px;color: #516197;">{{this.passwordLbl}}</p>
+              </div>    
+
+              <div class="col-12 col-sm-6" [hidden]="isReadOnly">
+                <mat-form-field appearance="outline">
+                  <mat-label>Confirm Password</mat-label>
+                  <input matInput type="text" maxlength="16" required [(ngModel)]="ParamForms.userpassword" formControlName="userpassword">
+                  <mat-error *ngIf="errorHandling('userpassword','required')">Confirm Password is required!</mat-error>
+         
+                </mat-form-field>
+              </div>
+                <div class="col-12 col-sm-12">
+                  <mat-checkbox labelPosition="before" [(ngModel)]="ParamForms.isactive" formControlName="isactive">Active!</mat-checkbox>
+                </div>                
+              </div>      
+          </mat-card-content>
+          <mat-card-footer>
+              <div class="float-right mt-3 mb-3">
+                  <button mat-raised-button color="primary" style="margin: 8px 8px 8px 0;" (click)="Save()">
+                    <mat-icon text-right>save</mat-icon> Save
+                  </button>
+                  <button mat-raised-button color="accent" style="margin: 8px 8px 8px 0;" [routerLink]="['/Userlist']">
+                      <mat-icon text-right>list</mat-icon> Get List
+                    </button>
+                  <button mat-raised-button color="warn" style="margin-right: 16px;"  [routerLink]="['/Userlist']">
+                      <mat-icon text-right>close</mat-icon> Close
+                  </button>
+              </div> 
+          </mat-card-footer>  
+      </mat-card>
+      <div class="overlay" *ngIf="isLoading">
+        <div class="center" *ngIf="isLoading">
+          <mat-spinner diameter="50" strokeWidth="5"></mat-spinner>
+        </div>
+      </div>
+    </form>
+  

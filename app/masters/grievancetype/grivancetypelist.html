@@ -1,0 +1,78 @@
+<mat-toolbar class="example-toolbar mat-elevation-z0 my-toolbar">
+  <h3>Grievance Type List</h3>
+  <span class="toolbar-spacer"></span>
+  <button  mat-button color="accent" class="float-right" [routerLink]="['/GrievanceTypeAdd']">
+    <mat-icon class="close-icon" color="warn" text-right>add</mat-icon>
+    <span [routerLink]="['/GrievanceTypeAdd']">New Grievance Type</span>
+  </button>
+  <!-- <button  mat-button color="accent" class="float-right" [routerLink]="['/GrievanceTypeAdd']">
+    <mat-icon class="close-icon" text-right>add</mat-icon>
+    <span [routerLink]="['/GrievanceTypeAdd']">New Grievance Type</span>
+  </button> -->
+</mat-toolbar>
+<hr>
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="example-header">
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
+          
+        </div>
+
+        <div class="example-container mat-elevation-z8" #TABLE>
+          <table mat-table #table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+            <!-- SchemeID Column -->
+            <ng-container matColumnDef="nGrievanceTypeId">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+              <td mat-cell *matCellDef="let element"> {{element.nGrievanceTypeId}} </td>
+            </ng-container>
+            <!-- SchemeName Column -->
+            <ng-container matColumnDef="tGrievanceType">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>  Grievance Type </th>
+              <td mat-cell *matCellDef="let element"> {{element.tGrievanceType}} </td>
+            </ng-container>
+            <!-- Status Column -->
+            <ng-container matColumnDef="nGrievanceTypeOrder">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Order </th>
+              <td mat-cell *matCellDef="let element"> {{element.nGrievanceTypeOrder}} </td>
+            </ng-container>
+            <!-- Createddate Column -->
+            <ng-container matColumnDef="dCreatedDt">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Created date </th>
+              <td mat-cell *matCellDef="let element"> {{element.dCreatedDt | date: 'dd/MM/yyyy'}} </td>
+            </ng-container>
+            <!-- EditAction Column -->
+            <ng-container matColumnDef="EditAction">
+              <th mat-header-cell *matHeaderCellDef> Action </th>
+              <td mat-cell *matCellDef="let element"> <a class="btn btn-info" [routerLink]="['/GrievanceTypeEdit/',element.nGrievanceTypeId]"><i
+                    class="fa fa-edit fa-fw"></i>
+                  Edit</a> </td>
+            </ng-container>
+            <!-- DeleteAction Column -->
+            <ng-container matColumnDef="DeleteAction">
+              <th mat-header-cell *matHeaderCellDef> Action </th>
+              <td mat-cell *matCellDef="let element">
+                <button class="btn btn-info" (click)="Delete(element.nGrievanceTypeId)">Delete</button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+    <!-- <div class="row">
+        <div class="col-md-12">
+    <div >
+              <mat-form-field>
+                  <button mat-raised-button class="btn btn-info" (click)="ExportTOExcel()">Export as Excel</button>
+              </mat-form-field>
+            </div>
+            </div>
+          </div> -->

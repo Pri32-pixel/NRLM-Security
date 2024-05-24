@@ -1,0 +1,51 @@
+<form  [formGroup]="KMSubVerticalForm" >
+    <mat-toolbar class="example-toolbar mat-elevation-z0 my-toolbar">
+        <h3>KM Sub Vertical Type</h3>
+        <span class="toolbar-spacer"></span>
+        <button mat-icon-button color="light" [routerLink]="['/KMSubVerticallist']"><mat-icon text-right>close</mat-icon></button>
+      </mat-toolbar>
+        <mat-card class="mat-elevation-z1 mt-3">
+            <mat-card-content>
+                <div class="row">
+                
+            <div class="col-12 col-sm-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Knowledge Material Vertical</mat-label>
+                <mat-select [(ngModel)]="ParamForms.knw_typeid" formControlName="knw_material_vertical" (change)="KMVerticalChange($event)">
+                  <mat-option *ngFor="let pt4 of ParamType4" [value]="pt4.knw_typeid">
+                    {{pt4.knw_material_vertical}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="errorHandling('knw_material_vertical','required')">Knowledge Material Vertical is required!
+                </mat-error>
+              </mat-form-field>
+                </div> 
+                <div class="col-12 col-sm-4">
+                  <mat-form-field appearance="outline">
+                    <mat-label>KM Sub Vertical type </mat-label>
+                    <input matInput type="text" maxlength="255" appAutoFocus required [(ngModel)]="ParamForms.knw_matvert_subtype" formControlName="knw_sub_material_vertical">
+                    <mat-error *ngIf="errorHandling('knw_sub_material_vertical','required')"> KM Sub Vertical Type is required!</mat-error>
+                  </mat-form-field>
+                </div> 
+                
+                  <div class="col-12 col-sm-4">
+                    <mat-checkbox labelPosition="before" [(ngModel)]="ParamForms.is_active" formControlName="is_active">Active!</mat-checkbox>
+                  </div>                
+                </div>      
+            </mat-card-content>
+            <mat-card-footer>
+                <div class="float-right mt-3 mb-3">
+                    <button mat-raised-button color="primary" style="margin: 8px 8px 8px 0;" (click)="Save()">
+                      <mat-icon text-right>save</mat-icon> Save
+                    </button>
+                    <button mat-raised-button color="accent" style="margin: 8px 8px 8px 0;" [routerLink]="['/KMSubVerticallist']">
+                        <mat-icon text-right>list</mat-icon> Get List
+                      </button>
+                    <button mat-raised-button color="warn" style="margin-right: 16px;"  [routerLink]="['/KMSubVerticallist']">
+                        <mat-icon text-right>close</mat-icon> Close
+                    </button>
+                </div> 
+            </mat-card-footer>  
+        </mat-card>
+      </form>
+    

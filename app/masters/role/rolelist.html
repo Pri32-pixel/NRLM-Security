@@ -1,0 +1,60 @@
+<mat-toolbar class="example-toolbar mat-elevation-z0 my-toolbar">
+  <h3>Role List</h3>
+  <span class="toolbar-spacer"></span>
+  <button mat-button color="accent" class="float-right" [routerLink]="['/RoleAdd']">
+    <mat-icon text-right>add</mat-icon>
+    <span [routerLink]="['/RoleAdd']">New Role</span>
+  </button>
+</mat-toolbar>
+<hr>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="example-header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+
+      </div>
+
+      <div class="example-container mat-elevation-z8" #TABLE>
+        <table mat-table #table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+          <!-- SchemeID Column -->
+          <ng-container matColumnDef="nRoleId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Role Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.roleid}} </td>
+          </ng-container>
+          <!-- SchemeName Column -->
+          <ng-container matColumnDef="tRoleName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Role Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.rolename}} </td>
+          </ng-container>
+          <!-- Createddate Column -->
+          <ng-container matColumnDef="dCreatedDt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Createddate </th>
+            <td mat-cell *matCellDef="let element"> {{element.createddt | date: 'dd/MM/yyyy'}} </td>
+          </ng-container>
+          <!-- EditAction Column -->
+          <ng-container matColumnDef="EditAction">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element"> <a mat-raised-button color="primary" class="btn btn-info"
+                [routerLink]="['/RoleEdit/',element.roleid]"><i class="fa fa-edit fa-fw"></i>
+                Edit</a> </td>
+          </ng-container>
+          <!-- DeleteAction Column -->
+          <ng-container matColumnDef="DeleteAction">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-raised-button color="warn" class="btn btn-info" (click)="Delete(element.roleid)">Delete</button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+
+    </div>
+  </div>
+</div>

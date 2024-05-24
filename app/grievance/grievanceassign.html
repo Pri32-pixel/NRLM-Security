@@ -1,0 +1,75 @@
+<form  [formGroup]="grievanceAssignForm" >
+<mat-toolbar class="example-toolbar mat-elevation-z0 my-toolbar">
+    <h3>Grievance Assign</h3>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button color="light" [routerLink]="['/GrievanceList']"><mat-icon text-right>close</mat-icon></button>
+  </mat-toolbar>
+    <mat-card class="mat-elevation-z1 mt-3">
+      <mat-card-content>
+          <div class="row">
+            <div class="col-12 col-sm-12">
+              <mat-form-field appearance="outline" >
+                <mat-label>Role</mat-label>
+                <mat-select appAutoFocus formControlName="nRoleId" (selectionChange)="RoleChange()" [(ngModel)]="ParamForms.nRoleId" required>
+                  <mat-option *ngFor="let pt of ParamType" [value]="pt.nRoleId">
+                    {{pt.tRoleName}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="errorHandling('nRoleId','required')">Role is required!</mat-error>
+              </mat-form-field>
+            </div> 
+            <div class="col-12 col-sm-12">
+              <mat-form-field appearance="outline" >
+                <mat-label>User</mat-label>
+                <mat-select formControlName="nGrievanceUserId" [(ngModel)]="ParamForms.nGrievanceUserId" required>
+                  <mat-option *ngFor="let pt1 of ParamType1" [value]="pt1.nGrievanceUserId">
+                    {{pt1.tUserName}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="errorHandling('nGrievanceUserId','required')">User is required!</mat-error>
+              </mat-form-field>
+            </div> 
+            <div class="col-12 col-sm-12">
+              <mat-form-field appearance="outline" >
+                <mat-label>Priority</mat-label>
+                <mat-select formControlName="nGrievancePriorityId" [(ngModel)]="ParamForms.nGrievancePriorityId" required>
+                  <mat-option *ngFor="let pt2 of ParamType2" [value]="pt2.nGrievancePriorityId">
+                    {{pt2.tGrievancePriority}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="errorHandling('nGrievancePriorityId','required')">Priority is required!</mat-error>
+              </mat-form-field>
+            </div> 
+          <div class="col-12 col-sm-12">
+            <mat-form-field appearance="outline">
+              <mat-label>Grievance Raised by</mat-label>
+              <input matInput   type="text" appAutoFocus required [(ngModel)]="ParamForms.CreatedByName" formControlName="CreatedByName">
+            </mat-form-field>
+          </div>   
+          <div class="col-12 col-sm-12">
+            <mat-form-field appearance="outline">
+              <mat-label>Subject</mat-label>
+              <input matInput   type="text" appAutoFocus required [(ngModel)]="ParamForms.tGrievanceSubject" formControlName="tGrievanceSubject">
+              
+            </mat-form-field>
+          </div>   
+          <div class="col-12 col-sm-12">
+            <mat-form-field appearance="outline">
+              <mat-label>Grievance Description</mat-label>
+              <input matInput   type="text" formControlName="tGrievanceDescription" [(ngModel)]="ParamForms.tGrievanceDescription">
+            </mat-form-field>
+          </div> 
+          </div>      
+      </mat-card-content>
+      <mat-card-footer>
+          <div class="float-right mt-3 mb-3">
+              <button mat-raised-button color="primary" style="margin: 8px 8px 8px 0;" (click)="SaveAssign()">
+                <mat-icon text-right>save</mat-icon> Save
+              </button>
+              <button mat-raised-button color="warn" (click)="closeForm()" [routerLink]="['/GrievanceList']">
+                  <mat-icon text-right>close</mat-icon> Close
+              </button>
+          </div> 
+      </mat-card-footer>  
+  </mat-card>
+  </form>

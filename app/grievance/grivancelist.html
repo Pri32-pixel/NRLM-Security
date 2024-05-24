@@ -1,0 +1,86 @@
+<mat-toolbar class="example-toolbar mat-elevation-z0 my-toolbar">
+  <h3>Knowledge Material List</h3>
+  <span class="toolbar-spacer"></span>
+  
+</mat-toolbar>
+<hr>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="example-header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Knowledge Material">
+        </mat-form-field>
+      </div>
+
+      <div class="mat-elevation-z8" #TABLE>
+        <table mat-table #table [dataSource]="dataSource" style="width: 100%;" matSort class="w-100">
+          <!-- nGrievanceId Column -->
+          <ng-container matColumnDef="nGrievanceId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.mkid}} </td>
+          </ng-container>
+          <!-- tGrievanceType Column -->
+          <ng-container matColumnDef="tGrievanceType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+            <td mat-cell *matCellDef="let element" > {{element.title}} </td>
+          </ng-container>
+          <!-- tGrievancePriority Column -->
+          <ng-container matColumnDef="tGrievancePriority">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+            <td mat-cell *matCellDef="let element"> {{element.doccategory}} </td>
+          </ng-container>
+          <!-- tGrievanceStatus Column -->
+          <!--<ng-container matColumnDef="tGrievanceStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> State Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.statename}} </td>
+          </ng-container>-->
+          <!-- tFileUploadPath Column -->
+          <ng-container matColumnDef="tFileUploadPath">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Attached Document </th>
+            <!--<td mat-cell *matCellDef="let element"> <a class="btn btn-info" target="_blank" href="http://97.74.87.6:8085/mnt/NRLM_API/{{element.file_path}}">{{element.file_path}}</a>  </td>-->
+            <td mat-cell *matCellDef="let element" ><a class="btn btn-info"(click)="openFile(element.file_path,element.mkid)">Download</a> </td>
+          </ng-container>
+          
+          <!-- Createddate Column -->
+          <ng-container matColumnDef="dCreatedDt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Created date </th>
+            <td mat-cell *matCellDef="let element"> {{element.createddt | date: 'dd/MM/yyyy'}} </td>
+          </ng-container>
+          <ng-container matColumnDef="EditAction" >
+            <th mat-header-cell *matHeaderCellDef  > Action </th>
+            <td mat-cell *matCellDef="let element" > 
+              <button mat-raised-button color="warn" class="btn btn-info" (click)="viewdocComponent(element.mkid)">View</button>  
+            </td>
+          </ng-container>
+          <!-- EditAction Column -->
+          <ng-container matColumnDef="EditAction1" >
+            <th mat-header-cell *matHeaderCellDef  > Action </th>
+            <td mat-cell *matCellDef="let element" >
+               <!-- <a class="btn btn-info" [hidden]="element.approver_status!=0" (click)="ApproveKM(element.mkid)"><i class="btn btn-info"></i>Approve</a>  -->
+                <button mat-raised-button color="warn" class="btn btn-info" [hidden]="element.approver_status!=0" (click)="ApproveKM(element.mkid)">Approve</button>
+              </td>
+          </ng-container>
+          <!-- DeleteAction Column -->
+          <ng-container matColumnDef="DeleteAction">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-raised-button color="warn" class="btn btn-info" [hidden]="element.is_published!=0 || element.approver_status ==0" (click)="PublishKM(element.mkid,'open')">Publish</button>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="ApproveAction">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-raised-button color="warn" class="btn btn-info" [hidden]="element.is_outside_publish!=0 || element.approver_status ==0" (click)="PublishKMInAajeevika(element.mkid,'open')">Publish in Aajeevika Portal</button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+      
+    </div>
+  </div>
+  </div>
+    

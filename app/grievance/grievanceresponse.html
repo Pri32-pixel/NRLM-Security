@@ -1,0 +1,77 @@
+<form [formGroup]="grievanceResponseForm">
+  <mat-toolbar class="example-toolbar mat-elevation-z0 my-toolbar">
+    <h3>Grievance Response</h3>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button color="light" [routerLink]="['/dashboard']">
+      <mat-icon text-right>close</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-card class="mat-elevation-z1 mt-3">
+    <mat-card-content>
+      <div class="row">
+        <div class="col-12 col-sm-12">
+          <mat-form-field appearance="outline">
+            <mat-label>Grievance Raised by</mat-label>
+            <input matInput  type="text"  [(ngModel)]="ParamForms.CreatedByName"
+              formControlName="CreatedByName">
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-12">
+          <mat-form-field appearance="outline">
+            <mat-label>Subject</mat-label>
+            <input matInput  type="text" 
+              [(ngModel)]="ParamForms.tGrievanceSubject" formControlName="tGrievanceSubject">
+
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-12">
+          <mat-form-field appearance="outline">
+            <mat-label>Grievance Description</mat-label>
+            <input matInput  type="text" formControlName="tGrievanceDescription"
+              [(ngModel)]="ParamForms.tGrievanceDescription">
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 col-sm-12">
+          <mat-form-field appearance="outline">
+            <mat-label>Grievanve Comment</mat-label>
+            <textarea matInput type="text"  [(ngModel)]="ParamForms.tGrievanceComment" formControlName="tGrievanceComment" appAutoFocus required></textarea>
+            <mat-error *ngIf="errorHandling('tGrievanceComment','required')">Comment is required!</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-12">
+          <mat-form-field appearance="outline">
+            <mat-label>Grievance Status</mat-label>
+            <mat-select formControlName="nGrievanceStatusId" [(ngModel)]="ParamForms.nGrievanceStatusId" required>
+              <mat-option *ngFor="let pt of ParamType" [value]="pt.nGrievanceStatusId">
+                {{pt.tGrievanceStatus}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('nGrievanceStatusId','required')">Status is required!</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-12">
+          <label>Attach files (Max Size 1 MB)</label>
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" (change)="onFileChange($event)" id="customFile">
+            <br />
+            <button (click)="uploadFile()" [disabled]="!theFile">
+              Upload File
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-footer>
+      <div class="float-right mt-3 mb-3">
+        <button mat-raised-button color="primary" style="margin: 8px 8px 8px 0;" (click)="SaveResponse()">
+          <mat-icon text-right>save</mat-icon> Save
+        </button>
+        <button mat-raised-button color="warn" [routerLink]="['/dashboard']">
+          <mat-icon text-right>close</mat-icon> Close
+        </button>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</form>

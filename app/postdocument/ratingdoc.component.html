@@ -1,0 +1,22 @@
+<form  [formGroup]="ChangePasswordForm1" >
+    <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+      <mat-icon class="close-icon" color="warn">close</mat-icon>
+    </button>
+  <h2 mat-dialog-title>Feedback</h2>
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline" class="mt-1">
+      <mat-label>Comment</mat-label>
+      <input matInput type="text" [(ngModel)]="ParamForms.feedback_cmnt" required cdkFocusInitial   formControlName="tUserOldPassword">
+      <mat-error *ngIf="errorHandling('tUserOldPassword','required')">Comment is required!</mat-error>
+    </mat-form-field>
+        <mat-label>Rating</mat-label>
+    <mat-star-rating [rating]="rating"  [starCount]="starCount" [color]="starColor" (ratingUpdated)="onRatingChanged($event)"></mat-star-rating>
+
+  </div>
+  <div mat-dialog-actions>
+    <!-- <div class="float-right mt-12 mb-12" style="display:inline !important"> -->
+    <button mat-raised-button color="primary" style=" background-color:#431e10;" (click)="SubmitRating()">Submit</button>
+    <button mat-raised-button color="warn" (click)="onNoClick()">Cancel</button>
+  <!-- </div> -->
+  </div>
+  </form>

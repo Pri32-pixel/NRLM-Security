@@ -1,0 +1,76 @@
+<form [formGroup]="viewdocForm">
+  <mat-toolbar class="example-toolbar mat-elevation-z0 my-toolbar">
+    <h3>View Knowledge Material</h3>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button color="light" *ngIf="loginService.isUserAdmin()" [routerLink]="['/GrievanceList']">
+      <mat-icon text-right>close</mat-icon>
+    </button>
+    <button mat-icon-button color="light" *ngIf="loginService.isUserStudent()"  [routerLink]="['/dashboard']">
+      <mat-icon text-right>close</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div class="col-md-12 mx-auto my-2" *ngFor="let item of tempList">
+    <mat-card _ngcontent-rpf-c208="" class="mat-card mat-focus-indicator product-text-info-wrapper">
+      <mat-card-title _ngcontent-rpf-c208="" class="mat-card-title">
+        <p _ngcontent-rpf-c208="">Knowledge Material Info</p>
+      </mat-card-title>
+      <mat-card-content _ngcontent-rpf-c208="" class="mat-card-content product-text-info-content">
+        <div _ngcontent-rpf-c208="" class="text-info-item-wrapper">
+          <p _ngcontent-rpf-c208="" class="text-info-title">Title:{{item.title}}</p>
+          <ul _ngcontent-rpf-c208="">
+            <li _ngcontent-rpf-c208="">Category:{{item.doccategory}}.</li>
+            <li _ngcontent-rpf-c208="">Source:{{item.docsource}}.</li>
+            <li _ngcontent-rpf-c208="">Language: {{item.knw_lang_txt}}</li>
+            <li _ngcontent-rpf-c208="">Approver Name: {{item.aprover_name}}</li>
+            <li _ngcontent-rpf-c208=""> Approver Desig: {{item.aprover_desg}}</li>
+          </ul>
+        </div>
+        <div _ngcontent-rpf-c208="" class="text-info-item-wrapper middle-block">
+          <div _ngcontent-rpf-c208="">
+            <p _ngcontent-rpf-c208="" class="text-info-title">Details: </p>
+            <p _ngcontent-rpf-c208=""> {{item.details}}</p>
+          </div>
+          <!-- <div _ngcontent-rpf-c208="">
+            <p _ngcontent-rpf-c208="" class="text-info-title">TECHNOLOGY</p>
+            <ul _ngcontent-rpf-c208="">
+              <li _ngcontent-rpf-c208="" class="ng-star-inserted">Ollie patch</li>
+              <li _ngcontent-rpf-c208="" class="ng-star-inserted">Cup soles</li>
+              <li _ngcontent-rpf-c208="" class="ng-star-inserted">Vulcanized rubber soles</li>
+              
+            </ul>
+          </div> -->
+        </div>
+        <div _ngcontent-rpf-c208="" class="text-info-item-wrapper">
+          <p _ngcontent-rpf-c208="" class="text-info-title">Download</p>
+          <!--<p><a class="btn btn-info" target="_blank"
+              href="http://97.74.87.6:8085/mnt/NRLM_API/{{item.file_path}}">download link</a></p>-->
+              <p><a class="btn btn-info" (click)="openFile(item.file_path,item.mkid)">download link</a></p>
+          <p _ngcontent-rpf-c208="" class="text-info-title">RATING &amp; REVIEWS</p>
+          <div _ngcontent-rpf-c208="" class="product-pop-wrapper">
+            <mat-star-rating [rating]="item.ratavrg | number:'1.0-0'"  [starCount]="5" [color]="starColor" ></mat-star-rating>
+            <!-- <p _ngcontent-rpf-c208="" class="product-pop">{{item.ratavrg | number:'1.0-0'}}</p> -->
+          </div>
+          <p _ngcontent-rpf-c208="" class="product-reviews">{{item.total_rating}} Reviews</p>
+            <button mat-raised-button color="primary" style=" background-color:#431e10;" (click)="getReviewAndComment()">Read all</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    
+  </div>
+  <div class="col-md-12" *ngIf="isLoadingCount">
+    <mat-card class="scrollable-content; mat-elevation-z1" style="margin-bottom: 10px;" *ngIf="!loginService.isUserStudent()">
+      <h3>Reviews & Comment</h3>
+      <div class="row">
+        <div class="col-md-12  mb-2" >
+          <mat-card-content >
+            <!-- <marquee onmouseover="this.stop();" onmouseout="this.start();" width="100%" direction="up" height="122px" style="white-space: pre-line"> -->
+              <ul>
+                <li *ngFor="let pt1 of EventName1;"><a>{{pt1.feedback_cmnt}}  (Review by {{pt1.firstname}} {{pt1.lastname}} Review Date {{pt1.createddt | date:'dd-MM-yyyy'}})  </a> <br> </li>
+              </ul>
+              <!-- </marquee> -->
+        </mat-card-content>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</form>

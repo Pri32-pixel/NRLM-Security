@@ -1,0 +1,190 @@
+<form [formGroup]="searchdocForm" #formDirective="ngForm">
+  
+  <mat-toolbar class="example-toolbar mat-elevation-z0 my-toolbar">
+    <h3>Search Knowledge Material</h3>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button color="light" [routerLink]="['/dashboard']">
+      <mat-icon text-right>close</mat-icon>
+    </button>
+  </mat-toolbar>
+  <!-- title: string = null;
+  doccategoryid: number = 0;
+  meta_tag: string = null;
+  knw_mat_vertical: number = 0;
+  aprover_name: string = null;
+  aprover_desg: string = null;
+  knw_lang: number = 0;
+  user_id: number = 0; -->
+  <mat-card>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-12 col-sm-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Knowledge Material category</mat-label>
+            <mat-select [(ngModel)]="ParamForms.doccategoryid" formControlName="nCategory" >
+              <mat-option *ngFor="let pt6 of ParamType6" [value]="pt6.doccategoryid">
+                {{pt6.doccategory}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Knowledge Material Source</mat-label>
+            <mat-select [(ngModel)]="ParamForms.docsourceid" formControlName="nSourceId" >
+              <mat-option *ngFor="let pt1 of ParamType1" [value]="pt1.docsourceid">
+                {{pt1.docsource}}
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="errorHandling('nSourceId','required')">Knowledge Material Source is required!</mat-error> -->
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6">
+          <mat-form-field appearance="outline" >
+            <mat-label>State </mat-label>
+            <mat-select  [(ngModel)]="ParamForms.stateid" formControlName="stateid" >
+              <mat-option *ngFor="let pt7 of ParamType7" [value]="pt7.stateid">
+                {{pt7.statename}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Language</mat-label>
+            <mat-select [(ngModel)]="ParamForms.knw_lang" formControlName="nLanguageId">
+              <mat-option *ngFor="let pt3 of ParamType3" [value]="pt3.lng_id">
+                {{pt3.language}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 col-sm-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Knowledge Material Vertical</mat-label>
+            <mat-select [(ngModel)]="ParamForms.knw_mat_vertical" formControlName="nMaterialVertical">
+              <mat-option *ngFor="let pt4 of ParamType4" [value]="pt4.knw_typeid">
+                {{pt4.knw_material_vertical}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 col-sm-3">
+          <mat-form-field appearance="outline">
+            <mat-label>File type</mat-label>
+            <mat-select [(ngModel)]="ParamForms.file_type" formControlName="nFileType" >
+              <mat-option *ngFor="let pt5 of ParamType5" [value]="pt5.ftypeid">
+                {{pt5.file_type}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Title</mat-label>
+          <input matInput [(ngModel)]="ParamForms.title" type="text" formControlName="title">
+          <mat-error >Title</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-sm-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Tag</mat-label>
+          <input matInput [(ngModel)]="ParamForms.meta_tag" type="text" formControlName="meta_tag">
+          <mat-error >Tag</mat-error>
+        </mat-form-field>
+      </div>
+      
+        <div class="col-12 col-sm-3">
+          <button mat-raised-button color="primary" style="background-color:#431e10; margin: 8px 8px 8px 0;"  (click)="showData()">
+            <mat-icon text-right>list</mat-icon> Search
+          </button>
+          <button mat-raised-button color="primary" style="background-color:#431e10; margin: 8px 8px 8px 0;"  (click)="ClearData()">
+            <mat-icon text-right>format_color_reset</mat-icon> Reset
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+  
+
+<div fxFlexAlign="stretch">
+  <div class="row" *ngIf="!isShow">
+    <div class="col" *ngFor="let item of tempList">
+  <mat-card  class="mat-elevation-z1 mt-3" fxFlex="33" style="margin: 15px;max-height: 450px;overflow-y: auto; padding-bottom: 50px;">
+    <mat-card-header>
+      <!-- <img
+        src="https://www.freakyjolly.com/wp-content/uploads/2021/07/cropped-cropped-fj-logo-192-removebg-preview-e1625997712615-1.png"
+        mat-card-avatar /> -->
+      <mat-card-title>
+        <p>
+          {{item.mkid}}
+       </p>
+         <p>
+        Title:{{item.title}}
+     </p>
+
+    </mat-card-title>
+      <mat-card-subtitle style="word-break: break-all;">
+       Category: {{item.doccategory}}<br>
+       Source:{{item.docsource}}<br>
+       Version: 1 <br>
+       Language: {{item.knw_lang_txt}}<br>
+       Approver Name: {{item.aprover_name}}<br>
+       Approver Desig: {{item.aprover_desg}}<br>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content style="word-break: break-all;">
+      <p>
+        Details:{{item.details}}
+     </p>
+     <p>
+      
+      <a class="btn btn-info" target="_blank"  (click)="openFile(item.file_path,item.mkid)" >download link</a>
+   </p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="accent" (click)="viewdocComponent(item.mkid)">View</button>
+    <!-- (click)="ApproveKM(element.mkid)" -->
+      <button mat-raised-button color="primary" (click)="openRatingdocComponent(item.mkid)">FEEDBACK</button>
+    </mat-card-actions>
+    <mat-star-rating  [rating]="item.ratavrg | number:'1.0-0'"  [starCount]="starCount" [color]="starColor" >
+      <!-- <mat-error *ngIf="item.ratavrg == null || item.ratavrg == 0">
+        No Ratings
+      </mat-error> -->
+    </mat-star-rating>
+
+ </mat-card>
+</div>
+</div>
+</div>
+    <!-- <div style="display:flex">
+      <mat-card class="mt-2" *ngFor="let item of tempList">
+          <mat-card-header>
+              <mat-card-title> {{item.title}} </mat-card-title>
+          </mat-card-header>
+      </mat-card>
+  </div> -->
+  
+  <mat-paginator [length]="list.length" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChange($event)">
+  </mat-paginator>
+  <!-- <mat-card class="mat-elevation-z1 mt-3">
+    <mat-card-content>
+      <h3>Search Knowledge Material page is under development</h3>
+    </mat-card-content>
+    <mat-card-footer>
+      <div class="float-right mt-3 mb-3">
+        <button mat-raised-button color="primary" style="margin: 8px 8px 8px 0;" (click)="SaveGrievance()">
+          <mat-icon text-right>save</mat-icon> Save
+        </button>
+        <button mat-raised-button color="warn" [routerLink]="['/dashboard']">
+          <mat-icon text-right>close</mat-icon> Close
+        </button>
+      </div>
+      
+    </mat-card-footer>
+  </mat-card> -->
+</form>

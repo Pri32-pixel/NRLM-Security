@@ -1,0 +1,157 @@
+<form [formGroup]="postdocForm">
+  <mat-toolbar class="example-toolbar mat-elevation-z0 my-toolbar">
+    <h3>Add Knowledge Material</h3>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button color="light" [routerLink]="['/dashboard']">
+      <mat-icon text-right>close</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-card class="mat-elevation-z1 mt-3">
+    <mat-card-content>
+      <div class="row">
+        <div class="col-12 col-sm-12">
+          <mat-form-field appearance="outline">
+            <mat-label>File Name</mat-label>
+            <input matInput type="text" (keypress)="omit_special_char($event)" maxlength="255" [(ngModel)]="ParamForms.title" formControlName="tFileName" 
+              required>
+            <mat-error *ngIf="errorHandling('tFileName','required')">File Name is required!</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Knowledge Material category</mat-label>
+            <mat-select [(ngModel)]="ParamForms.doccategoryid" formControlName="nCategory" required>
+              <mat-option *ngFor="let pt6 of ParamType6" [value]="pt6.doccategoryid">
+                {{pt6.doccategory}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('nCategory','required')">Knowledge Material category is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Knowledge Material Source</mat-label>
+            <mat-select [(ngModel)]="ParamForms.docsourceid" formControlName="nSourceId" required>
+              <mat-option *ngFor="let pt1 of ParamType1" [value]="pt1.docsourceid">
+                {{pt1.docsource}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('nSourceId','required')">Knowledge Material Source is required!</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6">
+          <mat-form-field appearance="outline" >
+            <mat-label>State (Select)</mat-label>
+            <mat-select appAutoFocus formControlName="stateid"  multiple required>
+              <mat-option *ngFor="let pt7 of ParamType7" [value]="pt7.stateid">
+                {{pt7.statename}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('stateid','required')">State is required!</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Cross State Publication</mat-label>
+            <mat-select [(ngModel)]="ParamForms.cross_state_status" formControlName="nCrossPublication" required>
+              <mat-option *ngFor="let pt2 of ParamType2" [value]="pt2.nCrossPublication">
+                {{pt2.tCrossPublication}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('nCrossPublication','required')">Cross State Publication is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Language</mat-label>
+            <mat-select [(ngModel)]="ParamForms.knw_lang" formControlName="nLanguageId" required>
+              <mat-option *ngFor="let pt3 of ParamType3" [value]="pt3.lng_id">
+                {{pt3.language}}
+              </mat-option>
+            </mat-select>
+             <mat-error *ngIf="errorHandling('nLanguageId','required')">Language is required!</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Knowledge Material Vertical</mat-label>
+            <mat-select [(ngModel)]="ParamForms.knw_mat_vertical" formControlName="nMaterialVertical" required (selectionChange)="KMVerticalChange($event)">
+              <mat-option *ngFor="let pt4 of ParamType4" [value]="pt4.knw_typeid">
+                {{pt4.knw_material_vertical}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('nMaterialVertical','required')">Knowledge Material Vertical is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Knowledge Material Sub Vertical</mat-label>
+            <mat-select [(ngModel)]="ParamForms.knw_material_subtypeid" formControlName="nMaterialSubVertical" required>
+              <mat-option *ngFor="let pt8 of ParamType8" [value]="pt8.knw_subtypeid">
+                {{pt8.knw_matvert_subtype}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('nMaterialSubVertical','required')">Knowledge Material Sub Vertical is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6">
+          <mat-form-field appearance="outline">
+            <mat-label>File type</mat-label>
+            <mat-select [(ngModel)]="ParamForms.file_type" formControlName="nFileType" required>
+              <mat-option *ngFor="let pt5 of ParamType5" [value]="pt5.ftypeid">
+                {{pt5.file_type}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('nFileType','required')">File type is required!</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Approver Name</mat-label>
+            <input matInput type="text" maxlength="255" (keypress)="omit_special_char($event)" formControlName="tApproverName" [(ngModel)]="ParamForms.aprover_name">
+            <mat-error *ngIf="errorHandling('tApproverName','required')">Approver Name is required!</mat-error>
+          </mat-form-field>
+        </div>
+         <div class="col-12 col-sm-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Approver Designation</mat-label>
+            <input matInput type="text" maxlength="255" (keypress)="omit_special_char($event)" formControlName="tApproverDesig" [(ngModel)]="ParamForms.aprover_desg">
+            <mat-error *ngIf="errorHandling('tApproverDesig','required')">Approver Designation is required!</mat-error>
+          </mat-form-field>
+        </div> 
+       <div class="col-12 col-sm-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Key Words (To achieve better search for the KM Material)</mat-label>
+            <input matInput type="text" (keypress)="omit_special_char($event)" formControlName="tTag" [(ngModel)]="ParamForms.meta_tag" required>
+            <mat-error *ngIf="errorHandling('tTag','required')">Tag is required!</mat-error>
+          </mat-form-field>
+        </div> 
+        <div class="col-12 col-sm-12">
+          <label>Attach files</label>
+          <div class="custom-file">
+            <input type="file" #inputFile  class="custom-file-input" [ngClass]="{ 'is-invalid': submitted && f.imageInput.errors }"  name="imageInput" (change)="onFileChange($event)" id="customFile" valid-file>
+            <div *ngIf="submitted" class="invalid-feedback">
+              <mat-error *ngIf="errorHandling('imageInput','required')">File is required!</mat-error>
+            </div>
+            
+            <br />
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-footer>
+      <div class="float-right mt-3 mb-3">
+        <button mat-raised-button color="primary" style="margin: 8px 8px 8px 0;" (click)="Save()">
+          <mat-icon text-right>save</mat-icon> Save
+        </button>
+        <button mat-raised-button color="warn" [routerLink]="['/dashboard']">
+          <mat-icon text-right>close</mat-icon> Close
+        </button>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</form>
